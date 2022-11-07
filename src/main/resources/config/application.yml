@@ -40,9 +40,9 @@ ssp:
       # token 발급 타입
       type: REFRESH
       default-channel: WEB
-      solt: qWVB5DyBKiCmJdxd
+      solt: d762a02d1a9244d8
       refresh:
-        solt: qWVB5DyBKiC0Jdx1
+        solt: e83cde8064374b1c
       authority:
         # API 권한 검사  enabled/disabled
         enabled: false
