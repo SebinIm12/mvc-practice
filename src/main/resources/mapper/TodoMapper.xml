@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.pentaworks.gdc.member.todo.mapper.TodoMapper">
+
+    <select id="findAll" parameterType="TodoSearchRequestDTO" resultType="TodoVO">
+        /* findAll */
+        SELECT
+        ID
+        , MEMO
+        , DUE_DATE as dueDate
+        , MODIFIED_DATETIME as modifiedDateTime
+        FROM TODO
+        WHERE 1=1
+        <if test='memo != null and !"".equals(memo)'>
+            AND MEMO LIKE CONCAT('%',#{memo, jdbcType=VARCHAR},'%')
+        </if>
+        <if test='startDueDate != null and !"".equals(startDueDate)'>
+            AND DUE_DATE &gt;= #{startDueDate, jdbcType=DATE}
+        </if>
+        <if test='endDueDate != null and !"".equals(endDueDate)'>
+            AND DUE_DATE &lt;= #{endDueDate, jdbcType=DATE}
+        </if>
+        ORDER BY ID DESC
+    </select>
+
+    <select id="findById" resultType="TodoVO">
+        /* findById */
+        SELECT
+        ID
+        , MEMO
+        , DUE_DATE as dueDate
+        , MODIFIED_DATETIME as modifiedDateTime
+        FROM TODO
+        WHERE ID = #{id}
+    </select>
+
+    <insert id="add" parameterType="TodoRequestDTO" useGeneratedKeys="true" keyProperty="id">
+        /* add */
+        INSERT INTO TODO (
+        MEMO
+        , DUE_DATE
+        , MODIFIED_DATETIME
+        ) VALUES (
+        #{memo, jdbcType=VARCHAR}
+        , #{dueDate, jdbcType=DATE}
+        , CURRENT_TIMESTAMP()
+        )
+    </insert>
+
+    <update id="modify" parameterType="TodoRequestDTO">
+        /* modify */
+        UPDATE TODO
+        SET
+        MEMO = #{memo, jdbcType=VARCHAR}
+        , DUE_DATE = #{dueDate, jdbcType=DATE}
+        , MODIFIED_DATETIME = CURRENT_TIMESTAMP()
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="remove">
+        DELETE
+        FROM TODO
+        WHERE ID = #{id}
+    </delete>
+
+</mapper>

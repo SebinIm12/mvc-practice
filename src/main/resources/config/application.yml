@@ -1,0 +1,153 @@
+spring:
+  profiles:
+    active: local
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+    add-properties: false
+  jackson:
+    time-zone: "Asia/Seoul"
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: console
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+logging:
+  level:
+    com.zaxxer.hikari.pool.HikariPool: info
+    xyz.pentaworks.gdc.member: debug
+
+server:
+  # 서버 port 설정
+  port: 9000
+
+ssp:
+  app:
+    name: '@project.name@'
+    version: '@project.version@'
+    desc: '@project.description@'
+
+  filter:
+    authentication:
+      # token 검사 enabled/disabled
+      enabled: true
+      # token 발급 타입
+      type: REFRESH
+      default-channel: WEB
+      solt: qWVB5DyBKiCmJdxd
+      refresh:
+        solt: qWVB5DyBKiC0Jdx1
+      authority:
+        # API 권한 검사  enabled/disabled
+        enabled: false
+  swagger:
+    enabled: true
+
+mybatis:
+  # mybatis mapper xml 위치
+  mapper-locations: mapper/**/*.xml
+  # mapper xml 사용 model 위치
+  type-aliases-package: xyz.pentaworks.gdc.member.*.model
+
+---
+# local 환경 설정
+spring:
+  config:
+    activate:
+      on-profile: local
+  multi-datasource:
+    ssp:
+      platform: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://13.209.237.229:3306/gdc_ssp?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Seoul
+      username: gdcssp
+      password: gdcssp12#$
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+      initialization-mode: never
+    member:
+      platform: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://13.209.237.229:3306/gdc_member?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Seoul
+      username: gdcmember
+      password: gdcmember12#$
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+      initialization-mode: never
+
+  mvc:
+    log-request-details: true
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.zaxxer.hikari: debug
+    org.hibernate.SQL: debug
+    software.amazon.awssdk: warn
+    software.amazon.awssdk.request: debug
+    org.apache.http.wire: debug
+    io.netty.handler.logging: debug
+    reactor.netty.http.client: debug
+    xyz.pentaworks.ssp: debug
+
+debug: true
+
+---
+# development 환경 설정
+spring:
+  config:
+    activate:
+      on-profile: dev
+  multi-datasource:
+    ssp:
+      platform: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://13.209.237.229:3306/gdc_ssp?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Seoul
+      username: gdcssp
+      password: gdcssp12#$
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+      initialization-mode: never
+    member:
+      platform: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://13.209.237.229:3306/gdc_member?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Seoul
+      username: gdcmember
+      password: gdcmember12#$
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+      initialization-mode: never
+
+  mvc:
+    log-request-details: true
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.zaxxer.hikari: debug
+    org.hibernate.SQL: debug
+    software.amazon.awssdk: warn
+    software.amazon.awssdk.request: debug
+    org.apache.http.wire: debug
+    io.netty.handler.logging: debug
+    reactor.netty.http.client: debug
+    xyz.pentaworks.ssp: debug
+
+debug: true
+
+---
+# product 환경 설정
+spring:
+  config:
+    activate:
+      on-profile: prd
