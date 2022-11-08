@@ -6,4 +6,4 @@ deploy_dev:
     - if: $CI_COMMIT_BRANCH == "develop"
       when: manual
   tags:
-    - deploy_dev
+    - deploy-dev
