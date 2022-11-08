@@ -1,0 +1,4 @@
+deploy_dev:
+  stage: deploy
+  script:
+    - echo "hi"
