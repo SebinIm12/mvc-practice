@@ -2,3 +2,8 @@ deploy_dev:
   stage: deploy
   script:
     - echo "hi"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      when: manual
+  tags:
+    - deploy_dev
