@@ -1,7 +1,7 @@
 deploy_dev:
   stage: deploy
   script:
-    - echo "hi"
+    - ./mvnw -Dmaven.test.skip=true -Pdev clean package
   rules:
     - if: $CI_COMMIT_BRANCH == "develop"
       when: manual
