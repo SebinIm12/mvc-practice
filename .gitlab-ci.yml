@@ -3,7 +3,7 @@ deploy_dev:
   script:
     - chmod +x mvnw
     - ./mvnw -Dmaven.test.skip=true clean package
-    - sudo sh /home/ubuntu/docker/member.sh
+    - sudo sh /home/ubuntu/docker/deploy.sh member 9000
   rules:
     - if: $CI_COMMIT_BRANCH == "develop"
       when: manual
