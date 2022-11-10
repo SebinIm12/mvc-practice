@@ -35,8 +35,8 @@
         <springProfile name="local">
             <appender-ref ref="stdout"/>
         </springProfile>
+        <appender-ref ref="stdout"/>
         <springProfile name="dev, prd">
-            <appender-ref ref="stdout"/>
             <appender-ref ref="dailyRollingFileAppender"/>
         </springProfile>
     </root>
